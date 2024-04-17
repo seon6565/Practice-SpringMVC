@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 @Log4j2
 @Controller
 @RequestMapping("/bbs")
-public class bbsController {
+public class BbsController {
 
     @GetMapping("/list")
     public void list(){
@@ -25,20 +22,10 @@ public class bbsController {
         log.info("============================");
     }
     @GetMapping("/view")
-    public void view(@RequestParam(name="idx", defaultValue = "0") int idx, @RequestParam(name="user_id", defaultValue = "") String user_id,
-                     @RequestParam(name="title", defaultValue = "0") String title, @RequestParam(name="display_date", defaultValue = "") LocalDate display_date,
-                     Model model){
+    public void view(@RequestParam(name="idx", defaultValue = "0") int idx, Model model){
         log.info("============================");
         log.info("bbsController view");
         log.info("idx : " +idx);
-        log.info("name : " +user_id);
-        log.info("age : " +title);
-        log.info("display_date : " +display_date);
-        log.info("============================");
-        model.addAttribute("idx",idx);
-        model.addAttribute("user_id",user_id);
-        model.addAttribute("title",title);
-        model.addAttribute("display_date",display_date);
     }
     @GetMapping("/regist")
     public void registGET(){
@@ -52,12 +39,7 @@ public class bbsController {
         log.info("bbsController registPOST");
         log.info("bbsDTO : " +bbsDTO);
         log.info("============================");
-
-        model.addAttribute("key3","v3");
-        redirectAttributes.addAttribute("key1","v1");
-        redirectAttributes.addFlashAttribute("key2","v2");
         return "redirect:/bbs/list";
-
     }
     @GetMapping("/modify")
     public void modifyGET(){
@@ -78,12 +60,4 @@ public class bbsController {
         log.info("============================");
     }
 
-    @GetMapping("/list2")
-    public void list2(String s1, int i2){
-        log.info("============================");
-        log.info("list2 list2");
-        log.info("list2 s1" +s1);
-        log.info("list2 i2" +i2);
-        log.info("============================");
-    }
 }
