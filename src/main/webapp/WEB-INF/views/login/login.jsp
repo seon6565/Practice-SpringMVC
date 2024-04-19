@@ -16,6 +16,7 @@
 
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
 <div class="container">
 <h1>login</h1>
 <p style="color: red">${errors}</p>
@@ -46,6 +47,7 @@
     </div>
 </form>
 </div>
+<%@ include file="../common/footer.jsp"%>
 <script>
     const btnLogin = document.getElementById("btnLogin");
     const frm = document.getElementById("frmLogin");

@@ -17,6 +17,7 @@
 
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
 <div class="container">
 <ul class="list-group">
     <h1>list</h1>
@@ -28,5 +29,6 @@
     </c:forEach>
 </ul>
 </div>
+<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

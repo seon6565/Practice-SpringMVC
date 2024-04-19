@@ -79,15 +79,21 @@ public class BbsController {
         model.addAttribute("bbsDTO",bbsDTO);
     }
     @PostMapping("/modify")
-    public String modifyPOST(BbsDTO bbsDTO, Model model, RedirectAttributes redirectAttributes, @RequestParam(name="idx", defaultValue = "0") int idx){
+    public String modifyPOST(@Valid BbsDTO bbsDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         log.info("============================");
         log.info("bbsController modifyPOST");
         log.info("modifyPOST bbsDTO"+bbsDTO);
         log.info("============================");
-
+        if(bindingResult.hasErrors()){
+            log.info("bindingResult Errors : " +bbsDTO);
+            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("bbsDTO",bbsDTO);
+            redirectAttributes.addAttribute("idx",bbsDTO.getIdx());
+            return "redirect:/bbs/modify";
+        }
         int result = bbsServiceIf.modify(bbsDTO);
         if(result > 0 ){
-            return "redirect:/bbs/view?idx="+idx;
+            return "redirect:/bbs/view?idx="+bbsDTO.getIdx();
         }
         else{
             return "/bbs/modify";

@@ -17,6 +17,7 @@
 
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
 <div class="container">
 <h1>modify</h1>
 <form name="frmModify" id="frmModify" method="post" action="/bbs/modify">
@@ -71,6 +72,8 @@
         <button class="btn btn-primary" type="submit">글 수정</button>
     </div>
 </form>
+</div>
+<%@ include file="../common/footer.jsp"%>
 <script>
     const result = {};
     <c:forEach items="${errors}" var="err">
@@ -83,6 +86,5 @@
 
     console.log(result);
 </script>
-</div>
 </body>
 </html>

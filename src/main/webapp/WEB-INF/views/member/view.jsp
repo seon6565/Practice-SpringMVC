@@ -11,28 +11,55 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
+<div class="container">
 <h1>view</h1>
-${memberDTO}
-<div>
-    <span>아이디: ${memberDTO.idx}</span>
+<form name="frmDelete" id="frmDelete" method="post" action="/member/delete">
+    <input type="hidden" id="user_id" name="user_id" value="${memberDTO.user_id}">
+<div class="mb-3">
+    아이디
+    <span class="form-control">${memberDTO.user_id}</span>
 </div>
-<div>
-    <span>아이디: ${bbsDTO.user_id}</span>
+<div class="mb-3">
+    이름
+    <span class="form-control">${memberDTO.name}</span>
 </div>
-<div>
-    <span>제목: ${bbsDTO.title} </span>
+<div class="mb-3">
+    이메일
+    <span class="form-control"> ${memberDTO.email} </span>
 </div>
-<div>
-    <span>내용: ${bbsDTO.content} </span>
+<div class="mb-3">
+    생년월일
+    <span class="form-control">${memberDTO.brithday} </span>
 </div>
-<div>
-    <span>출력날짜: ${bbsDTO.display_date} </span>
+<div class="mb-3">
+    관심사항
+    <span class="form-control"> ${memberDTO.interest} </span>
 </div>
-<div>
-    <button type="button" onclick="location.href='/member/modify?idx=1'">수정</button>
-    <button type="button" onclick="location.href='/member/leave?idx=1'">삭제</button>
+<div class="mb-3">
+    주소
+    <span class="form-control">${memberDTO.addr1} + ${memberDTO.addr2} </span>
 </div>
+<div class="d-grid gap-2 d-md-flex">
+    <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/list'">메인 화면</button>
+    <button class="btn btn-outline-primary" type="button" onclick="location.href='/member/modify?user_id=${memberDTO.user_id}'">회원정보수정</button>
+    <button class="btn btn-outline-primary" type="button" onclick="goDelete()">회원탈퇴</button>
+</div>
+</form>
+</div>
+<%@ include file="../common/footer.jsp"%>
+<script>
+    function goDelete(){
+        const frm = document.getElementById("frmDelete");
+        if(confirm("해당 게시글을 삭제하시겠습니까?")){
+            frm.submit();
+        }
+    }
+</script>
 </body>
 </html>

@@ -41,20 +41,19 @@ public class LoginController {
         log.info("============================");
     }
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String loginPOST(@Valid MemberDTO memberDTO,
+    public String loginPOST(String user_id, String pwd,
                             @RequestParam(name="acc_url", defaultValue = "/bbs/list", required = false) String acc_url,
-                            BindingResult bindingResult,
                             HttpServletRequest req,
                             Model model,
                             RedirectAttributes redirectAttributes){
         log.info("============================");
         log.info("LoginController loginPOST");
         log.info("============================");
-        MemberDTO LoginMemberDTO = loginServiceIf.login_info(memberDTO.getUser_id(),memberDTO.getPwd());
-        if(bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
-            return "/login/login";
-        }
+        MemberDTO LoginMemberDTO = loginServiceIf.login_info(user_id,pwd);
+//        if(bindingResult.hasErrors()){
+//            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
+//            return "/login/login";
+//        }
         String uri = acc_url;
 //        try {
 //            uri = URLEncoder.encode(acc_url, "UTF-8");

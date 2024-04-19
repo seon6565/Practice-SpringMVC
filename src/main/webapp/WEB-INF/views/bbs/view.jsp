@@ -16,6 +16,7 @@
 
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
 <div class="container">
 <h1>view</h1>
 <form name="frmDelete" id="frmDelete" method="post" action="/bbs/delete">
@@ -52,6 +53,7 @@
 </div>
 </form>
 </div>
+<%@ include file="../common/footer.jsp"%>
 <script>
     function goDelete(){
         const frm = document.getElementById("frmDelete");
