@@ -11,37 +11,47 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </head>
 <body>
+<div class="container">
 <h1>view</h1>
 <form name="frmDelete" id="frmDelete" method="post" action="/bbs/delete">
     <input type="hidden" id="idx" name="idx" value="${bbsDTO.idx}">
-<div>
-    <span>idx: ${bbsDTO.idx}</span>
+<div class="mb-3">
+    idx
+    <span class="form-control">${bbsDTO.idx}</span>
 </div>
-<div>
-    <span>아이디: ${bbsDTO.user_id}</span>
+<div class="mb-3">
+    아이디
+    <span class="form-control">${bbsDTO.user_id}</span>
 </div>
-<div>
-    <span>제목: ${bbsDTO.title} </span>
+<div class="mb-3">
+    제목
+    <span class="form-control"> ${bbsDTO.title} </span>
 </div>
-<div>
-    <span>내용: ${bbsDTO.content} </span>
+<div class="mb-3">
+    내용
+    <span class="form-control">${bbsDTO.content} </span>
 </div>
-
-<div>
-    <span>출력날짜: ${bbsDTO.display_date} </span>
+<div class="mb-3">
+    출력날짜
+    <span class="form-control"> ${bbsDTO.display_date} </span>
 </div>
-<div>
-    <span>관심사항: ${bbsDTO.interest} </span>
+<div class="mb-3">
+    관심사항
+    <span class="form-control">${bbsDTO.interest} </span>
 </div>
-<div>
-    <button type="button" onclick="location.href='/bbs/list'">목록</button>
-    <button type="button" onclick="location.href='/bbs/modify?idx=${bbsDTO.idx}'">수정</button>
-    <button type="button" onclick="location.href='/login/login'">로그인</button>
-    <button type="button" onclick="goDelete()">삭제</button>
+<div class="d-grid gap-2 d-md-flex">
+    <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/list'">목록</button>
+    <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/modify?idx=${bbsDTO.idx}'">수정</button>
+    <button class="btn btn-outline-primary" type="button" onclick="goDelete()">삭제</button>
+    <button class="btn btn-outline-primary" type="button" onclick="location.href='/login/login'">로그인</button>
 </div>
 </form>
+</div>
 <script>
     function goDelete(){
         const frm = document.getElementById("frmDelete");

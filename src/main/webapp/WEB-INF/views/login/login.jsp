@@ -11,20 +11,41 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </head>
 <body>
+<div class="container">
 <h1>login</h1>
 <p style="color: red">${errors}</p>
 <form id="frmLogin" name="frmLogin" method="post" action="/login/login">
     <input type="hidden" name="acc_url" id="acc_url" value="${acc_url}">
-    <div><span>아이디: </span> <input type="text" name="user_id" id="user_id" value=""></div>
-    <div><span>비밀번호: </span> <input type="text" name="pwd" id="pwd" value=""></div>
-    <div><span>아이디저장: </span> <input type="checkbox" name="save_id" id="save_id" value="${Checked}">
-    <span>자동로그인: </span> <input type="checkbox" name="auto_login" id="auto_login" value="${Checked}"></div>
-    <div>
-        <button id="btnLogin">로그인</button>
+    <div class="mb-3">
+        <label for="user_id" class="form-label">아이디:</label>
+        <input type="text" class="form-control" name="user_id" id="user_id" value="${bbsDTO.user_id}">
+        <div id="div_err_user_id" style="display:none"></div>
+    </div>
+    <div class="mb-3">
+        <label for="pwd" class="form-label">비밀번호:</label>
+        <input type="text" class="form-control" name="pwd" id="pwd" value="${bbsDTO.pwd}">
+        <div id="div_err_pwd" style="display:none"></div>
+    </div>
+    <div class="mb-3">
+        <div class="form-check form-switch form-check-inline">
+            <label class="form-check-label" for="save_id">아이디저장:</label>
+            <input class="form-check-input" type="checkbox" role="switch" name="save_id" id="save_id" value="${Checked}">
+        </div>
+        <div class="form-check form-switch form-check-inline">
+            <label class="form-check-label" for="auto_login">자동로그인:</label>
+            <input class="form-check-input" type="checkbox" role="switch" name="auto_login" id="auto_login" value="${Checked}">
+        </div>
+    </div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary" id="btnLogin">로그인</button>
     </div>
 </form>
+</div>
 <script>
     const btnLogin = document.getElementById("btnLogin");
     const frm = document.getElementById("frmLogin");
