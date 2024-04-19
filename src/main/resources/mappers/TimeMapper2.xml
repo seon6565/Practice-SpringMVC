@@ -6,7 +6,4 @@
     <select id="getNow" resultType="string">
         select now()
     </select>
-
-
-
 </mapper>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: user
@@ -14,8 +15,11 @@
 </head>
 <body>
 <h1>list</h1>
-<p>key1 : ${key1}</p>
-<p>key2 : ${key2!=null ?"erorr":"test"}</p>
-<p>key3 : ${key3}</p>
+${loginInfo}
+<ul>
+    <c:forEach var="list" items="${bbsList}">
+        <li><a href="/bbs/view?idx=${list.idx}"><c:out value="${list}"/></a></li>
+    </c:forEach>
+</ul>
 </body>
 </html>

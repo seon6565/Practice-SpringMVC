@@ -14,17 +14,21 @@
 </head>
 <body>
 <h1>view</h1>
+${memberDTO}
 <div>
-    <span>아이디: ${user_id}</span>
+    <span>아이디: ${memberDTO.idx}</span>
 </div>
 <div>
-    <span>제목: ${title} </span>
+    <span>아이디: ${bbsDTO.user_id}</span>
 </div>
 <div>
-    <span>내용: ${content} </span>
+    <span>제목: ${bbsDTO.title} </span>
 </div>
 <div>
-    <span>출력날짜: ${display_date} </span>
+    <span>내용: ${bbsDTO.content} </span>
+</div>
+<div>
+    <span>출력날짜: ${bbsDTO.display_date} </span>
 </div>
 <div>
     <button type="button" onclick="location.href='/member/modify?idx=1'">수정</button>

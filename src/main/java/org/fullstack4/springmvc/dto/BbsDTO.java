@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
@@ -15,12 +13,22 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class BbsDTO {
+    @PositiveOrZero
     private int idx;
+    @NotBlank
     private String user_id;
+    @NotBlank
     private String title;
+    @NotBlank
     private String content;
-    private int read_cnt;
+    @Builder.Default
+    @PositiveOrZero
+    @Min(value=0)
+    private int read_cnt=0;
+    @PastOrPresent
+    @NotNull
     private LocalDate display_date;
     private LocalDate reg_date;
     private LocalDate modify_date;
+    private String interest;
 }
