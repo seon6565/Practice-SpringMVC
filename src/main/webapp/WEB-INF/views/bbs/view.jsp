@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2024-04-17
-  Time: 오전 9:30
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -47,8 +41,12 @@
 </div>
 <div class="d-grid gap-2 d-md-flex">
     <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/list'">목록</button>
-    <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/modify?idx=${bbsDTO.idx}'">수정</button>
-    <button class="btn btn-outline-primary" type="button" onclick="goDelete()">삭제</button>
+    <c:if test="${bbsDTO.user_id==logininfo.user_id}">
+        <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/modify?idx=${bbsDTO.idx}'">수정</button>
+    </c:if>
+    <c:if test="${bbsDTO.user_id==logininfo.user_id}">
+        <button class="btn btn-outline-primary" type="button" onclick="goDelete()">삭제</button>
+    </c:if>
     <button class="btn btn-outline-primary" type="button" onclick="location.href='/login/login'">로그인</button>
 </div>
 </form>

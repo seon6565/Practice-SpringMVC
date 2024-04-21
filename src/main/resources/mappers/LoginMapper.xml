@@ -8,5 +8,9 @@
         from tbl_member
         where user_id=#{user_id}
     </select>
-
+    <select id="Cookie_login" resultType="org.fullstack4.springmvc.domain.MemberVO">
+        select user_id,name,pwd,jumin,addr1,addr2,brithday,job_code,mileage,user_state,reg_date,leave_date,pwd_change_date
+        from tbl_member
+        where user_id=#{user_id}
+    </select>
 </mapper>

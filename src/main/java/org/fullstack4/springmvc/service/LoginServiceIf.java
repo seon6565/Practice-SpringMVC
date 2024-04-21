@@ -5,4 +5,6 @@ import org.fullstack4.springmvc.dto.MemberDTO;
 
 public interface LoginServiceIf {
     MemberDTO login_info(String user_id, String pwd);
+
+    MemberDTO Cookie_login(String user_id);
 }

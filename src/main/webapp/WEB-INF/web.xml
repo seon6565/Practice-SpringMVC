@@ -24,6 +24,15 @@
             <servlet-name>appServlet</servlet-name>
         </filter-mapping>
 
+        <filter>
+            <filter-name>login</filter-name>
+            <filter-class>org.fullstack4.springmvc.controller.filter.LoginCheckFilter</filter-class>
+        </filter>
+        <filter-mapping>
+            <filter-name>login</filter-name>
+            <url-pattern>/bbs/*</url-pattern>
+        </filter-mapping>
+
         <servlet>
             <servlet-name>appServlet</servlet-name>
             <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
