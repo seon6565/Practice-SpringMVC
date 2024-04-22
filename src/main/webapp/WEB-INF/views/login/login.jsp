@@ -18,7 +18,6 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
-<h1>login</h1>
 <p style="color: red">${errors}</p>
 <form id="frmLogin" name="frmLogin" method="post" action="/login/login">
     <input type="hidden" name="acc_url" id="acc_url" value="${acc_url}">

@@ -12,7 +12,6 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
-<h1>modify</h1>
     <form name="frmModify" id="frmModify" method="post" action="/member/modify" onsubmit="checklast('user_id','div_err_user_id','pwd','div_err_pwd','name','div_err_name','email','div_err_email','brithday','div_err_brithday')">
         <div class="mb-3">
             <label for="user_id" class="form-label">아이디</label>

@@ -13,7 +13,7 @@
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="/member/view?user_id=${memberDTO.user_id}" class="nav-link">${memberDTO.name}님 환영합니다.</a></li>
             <li class="nav-item"><a href="/bbs/list" class="nav-link">게시판</a></li>
             <c:if test="${memberDTO !=null}">
                 <li class="nav-item"><a href="/member/view?user_id=${memberDTO.user_id}" class="nav-link">회원정보수정</a></li>

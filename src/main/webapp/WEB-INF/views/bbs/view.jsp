@@ -12,7 +12,6 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
-<h1>view</h1>
 <form name="frmDelete" id="frmDelete" method="post" action="/bbs/delete">
     <input type="hidden" id="idx" name="idx" value="${bbsDTO.idx}">
 <div class="mb-3">

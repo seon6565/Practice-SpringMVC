@@ -12,7 +12,6 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
-<h1>Regist</h1>
 <form name="frmRegist" id="frmRegist" method="post" action="/bbs/regist">
     <div class="mb-3">
         <label for="user_id" class="form-label">아이디</label>

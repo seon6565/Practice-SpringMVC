@@ -75,7 +75,6 @@ public class MemberController {
         if(memberServiceIf.idCheck(user_id) >0){
             count = memberServiceIf.idCheck(user_id);
         }
-        log.info("count = "+count);
         if(count > 0) {
             try {
                 response.getWriter().print("N");

@@ -18,7 +18,6 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
-<h1>view</h1>
 <form name="frmDelete" id="frmDelete" method="post" action="/member/delete">
     <input type="hidden" id="user_id" name="user_id" value="${memberDTO.user_id}">
 <div class="mb-3">

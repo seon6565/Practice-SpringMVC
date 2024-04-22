@@ -33,7 +33,7 @@ function checkInputId(id,textid,okflagid){
 	return true;
 }
 
-function idduplecheck(id,hiddenFlagId,okflagid,servletUrl){
+function idduplecheck(id,errordisplayId,okflagid,servletUrl){
 	let checkid = document.getElementById(id);
 	const xhr = new XMLHttpRequest();
 	xhr.open("get",servletUrl+"?user_id="+checkid.value);
@@ -41,12 +41,12 @@ function idduplecheck(id,hiddenFlagId,okflagid,servletUrl){
 	xhr.onload = function (){
 		if(xhr.status==200){
 			if(xhr.response == "N"){
-				document.getElementById(hiddenFlagId).style.display = "block";
+				document.getElementById(errordisplayId).style.display = "block";
 				document.getElementById(okflagid).value="0";
 				alert("이미 존재하거나 탈퇴한 회원의 아이디입니다.");
 			}
 			else{
-				document.getElementById(hiddenFlagId).style.display = "none"
+				document.getElementById(errordisplayId).style.display = "none"
 				document.getElementById(okflagid).value="1";
 				alert("중복 아이디가 없습니다.");
 			}

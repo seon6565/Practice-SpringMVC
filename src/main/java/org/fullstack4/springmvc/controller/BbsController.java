@@ -3,6 +3,8 @@ package org.fullstack4.springmvc.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.springmvc.dto.BbsDTO;
+import org.fullstack4.springmvc.dto.PageRequestDTO;
+import org.fullstack4.springmvc.dto.PageResponseDTO;
 import org.fullstack4.springmvc.service.BbsServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,13 +24,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BbsController {
     private final BbsServiceIf bbsServiceIf;
+//    @GetMapping("/list")
+//    public void list(Model model){
+//        log.info("============================");
+//        log.info("bbsController list");
+//        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll();
+//        model.addAttribute("bbsList",bbsDTOList);
+//        log.info("============================");
+//    }
     @GetMapping("/list")
-    public void list(Model model){
-        log.info("============================");
-        log.info("bbsController list");
-        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll();
-        model.addAttribute("bbsList",bbsDTOList);
-        log.info("============================");
+    public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
+        log.info("===============================");
+        log.info("BbsController >> list() START");
+        log.info("pageRequestDTO : "+ pageRequestDTO.toString());
+
+        if (bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+
+        PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
+        model.addAttribute("responseDTO", responseDTO);
+
+        log.info("responseDTO : "+ responseDTO.toString());
+        log.info("BbsController >> list() END");
+        log.info("===============================");
     }
     @GetMapping("/view")
     public void view(@RequestParam(name="idx", defaultValue = "0") int idx, Model model){
@@ -113,5 +133,7 @@ public class BbsController {
             return "/bbs/view?idx="+idx;
         }
     }
+
+
 
 }

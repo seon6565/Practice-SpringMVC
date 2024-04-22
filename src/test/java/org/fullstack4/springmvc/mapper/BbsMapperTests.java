@@ -1,60 +1,56 @@
-package org.fullstack4.springmvc.service;
+package org.fullstack4.springmvc.mapper;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.springmvc.domain.BbsVO;
-import org.fullstack4.springmvc.dto.BbsDTO;
 import org.fullstack4.springmvc.dto.PageRequestDTO;
-import org.fullstack4.springmvc.dto.PageResponseDTO;
-import org.fullstack4.springmvc.mapper.BbsMapper;
+import org.fullstack4.springmvc.service.BbsServiceIf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDate;
 import java.util.List;
 
-@Log4j2
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/root-context.xml")
-public class BbsServiceTests {
-    @Autowired()
-    private BbsServiceIf bbsServiceIf;
-    @Test
-    public void testRegist(){
-        BbsDTO bbsDTO = BbsDTO.builder()
-                .user_id("test")
-                .title("제목 테스트")
-                .content("내용 테스트")
-                .display_date(LocalDate.parse("2024-04-18"))
-                .read_cnt(0)
-                .build();
-        int result = bbsServiceIf.regist(bbsDTO);
-    }
+@Log4j2
+public class BbsMapperTests {
+    @Autowired(required = false)
+    private BbsMapper bbsMapper;
 
     @Test
     public void testBbsTotalCount(){
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1).page_size(10)
                 .build();
-        int totalCount = bbsServiceIf.bbsTotalCount(pageRequestDTO);
+        int totalCount = bbsMapper.bbsTotalCount(pageRequestDTO);
         log.info("======================================");
-        log.info("Service testBbsTotalCount : "+totalCount);
+        log.info("testBbsTotalCount : "+totalCount);
         log.info("======================================");
     }
 
     @Test
     public void testBbsListByPage(){
-        log.info("======================================");
-        log.info("testBbsListByPage Start");
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .page(2).page_size(10)
-                .build();
-        PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
+                .page(1).page_size(10).build();
+        List<BbsVO> bbsList = bbsMapper.bbsListByPage(pageRequestDTO);
         log.info("======================================");
-        responseDTO.getDtoList().forEach(vo->log.info(vo));
+        bbsList.forEach(list->log.info(list));
+        log.info("======================================");
+    }
+
+    @Test
+    public void testBbsListBySearch(){
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1).page_size(10).search_type(new String[]{"t","u"})
+                .search_word("테스트").build();
+        int total_count = bbsMapper.bbsTotalCount(pageRequestDTO);
+        List<BbsVO> bbsList = bbsMapper.bbsListByPage(pageRequestDTO);
+        log.info("======================================");
+        log.info("total_count: "+total_count);
+        bbsList.forEach(list->log.info(list));
         log.info("======================================");
     }
 }

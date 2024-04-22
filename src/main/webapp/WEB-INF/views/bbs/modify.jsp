@@ -19,7 +19,6 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
-<h1>modify</h1>
 <form name="frmModify" id="frmModify" method="post" action="/bbs/modify">
     <input type="hidden" id="idx" name="idx" value="${bbsDTO.idx}">
     <div class="mb-3">
