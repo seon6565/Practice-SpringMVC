@@ -61,4 +61,12 @@ public class MemberServiceImpl implements MemberServiceIf{
         return memberMapper.delete(user_id);
     }
 
+    @Override
+    public int idCheck(String user_id) {
+        log.info(user_id);
+        int result = memberMapper.idCheck(user_id);
+        log.info("결과테스트" +result);
+        return result;
+    }
+
 }

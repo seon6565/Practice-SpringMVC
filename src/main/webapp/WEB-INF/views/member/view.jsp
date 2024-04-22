@@ -56,7 +56,7 @@
 <script>
     function goDelete(){
         const frm = document.getElementById("frmDelete");
-        if(confirm("해당 게시글을 삭제하시겠습니까?")){
+        if(confirm("회원탈퇴를 하시겠습니까?")){
             frm.submit();
         }
     }

@@ -58,6 +58,9 @@
       <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
+
+      <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/list'">목록</button>
+      <button class="btn btn-outline-primary" type="button" onclick="location.href='/login/login'">로그인</button>
   </div>
 
   </div>

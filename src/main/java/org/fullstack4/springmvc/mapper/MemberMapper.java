@@ -10,4 +10,5 @@ public interface MemberMapper {
     MemberVO view(String user_id);
     int modify(MemberVO memberVO);
     int delete(String user_id);
+    int idCheck(String user_id);
 }

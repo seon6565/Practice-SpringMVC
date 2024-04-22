@@ -24,7 +24,7 @@
     <input type="hidden" id="idx" name="idx" value="${bbsDTO.idx}">
     <div class="mb-3">
         <label for="user_id" class="form-label">아이디</label>
-        <input type="text" class="form-control" name="user_id" id="user_id" value="${bbsDTO.user_id}">
+        <input type="text" class="form-control" name="user_id" id="user_id" value="${bbsDTO.user_id}" readonly>
         <div id="div_err_user_id" style="display:none"></div>
     </div>
     <div class="mb-3">

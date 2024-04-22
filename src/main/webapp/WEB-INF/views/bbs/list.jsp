@@ -14,12 +14,13 @@
 <div class="container">
 <ul class="list-group">
     <h1>list</h1>
-    ${loginInfo}
+    ${memberDTO}
     <c:forEach var="list" items="${bbsList}">
         <div class="card-body">
             <li class="list-group-item list-group-item-action rounded"><a class="text-break text-decoration-none text-muted" href="/bbs/view?idx=${list.idx}"><c:out value="${list}"/></a></li>
         </div>
     </c:forEach>
+    <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/regist'">등록</button>
 </ul>
 </div>
 <%@ include file="../common/footer.jsp"%>

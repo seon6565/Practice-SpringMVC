@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.springmvc.domain.BbsVO;
 import org.fullstack4.springmvc.domain.MemberVO;
 import org.fullstack4.springmvc.dto.BbsDTO;
+import org.fullstack4.springmvc.dto.LoginDTO;
 import org.fullstack4.springmvc.dto.MemberDTO;
 import org.fullstack4.springmvc.mapper.BbsMapper;
 import org.fullstack4.springmvc.mapper.LoginMapper;
@@ -21,9 +22,9 @@ public class LoginServiceImpl implements LoginServiceIf{
     private final LoginMapper loginXmlMapper;
     private final ModelMapper modelMapper;
     @Override
-    public MemberDTO login_info(String user_id, String pwd) {
-        MemberVO memberVO = loginXmlMapper.login_info(user_id,pwd);
-        if(memberVO!=null && memberVO.getPwd().equals(pwd)) {
+    public MemberDTO login_info(LoginDTO loginDTO) {
+        MemberVO memberVO = loginXmlMapper.login_info(loginDTO.getUser_id(),loginDTO.getPwd());
+        if(memberVO!=null && memberVO.getPwd().equals(loginDTO.getPwd())) {
             MemberDTO memberDTO = modelMapper.map(memberVO, MemberDTO.class);
             return memberDTO;
         }

@@ -10,4 +10,6 @@ public interface MemberServiceIf {
     MemberDTO view(String user_id);
     int modify(MemberDTO memberDTO);
     int delete(String user_id);
+
+    int idCheck(String user_id);
 }

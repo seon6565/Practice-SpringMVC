@@ -41,13 +41,12 @@
 </div>
 <div class="d-grid gap-2 d-md-flex">
     <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/list'">목록</button>
-    <c:if test="${bbsDTO.user_id==logininfo.user_id}">
+    <c:if test="${bbsDTO.user_id==memberDTO.user_id}">
         <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/modify?idx=${bbsDTO.idx}'">수정</button>
     </c:if>
-    <c:if test="${bbsDTO.user_id==logininfo.user_id}">
+    <c:if test="${bbsDTO.user_id==memberDTO.user_id}">
         <button class="btn btn-outline-primary" type="button" onclick="goDelete()">삭제</button>
     </c:if>
-    <button class="btn btn-outline-primary" type="button" onclick="location.href='/login/login'">로그인</button>
 </div>
 </form>
 </div>

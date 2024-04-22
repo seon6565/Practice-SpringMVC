@@ -38,6 +38,6 @@ public class CommonException {
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String notFound(){
-        return "404";
+        return "/error/404";
     }
 }

@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Log4j2
 @Controller
@@ -61,7 +64,32 @@ public class MemberController {
         else{
             return "/member/join";
         }
+    }
+    @GetMapping("/duplecheck")
+    public void duplecheckGET(HttpServletRequest request, HttpServletResponse response){
+        log.info("============================");
+        log.info("MemberController duplecheckGET");
+        log.info("============================");
+        String user_id = request.getParameter("user_id");
+        int count = 0;
+        if(memberServiceIf.idCheck(user_id) >0){
+            count = memberServiceIf.idCheck(user_id);
+        }
+        log.info("count = "+count);
+        if(count > 0) {
+            try {
+                response.getWriter().print("N");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
+        }else {
+            try {
+                response.getWriter().print("Y");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
     @GetMapping("/modify")
     public void modifyGET(@RequestParam(name="user_id", defaultValue = "") String user_id, Model model){
@@ -93,12 +121,13 @@ public class MemberController {
         }
     }
     @PostMapping("/delete")
-    public String deletePOST(String user_id){
+    public String deletePOST(String user_id, HttpServletRequest request){
         log.info("============================");
         log.info("MemberController deletePOST");
         log.info("============================");
         int result = memberServiceIf.delete(user_id);
         if(result > 0 ){
+            request.getSession().invalidate();
             return "redirect:/bbs/list";
         }
         else{

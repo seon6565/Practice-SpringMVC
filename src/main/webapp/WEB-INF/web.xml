@@ -26,11 +26,17 @@
 
         <filter>
             <filter-name>login</filter-name>
-            <filter-class>org.fullstack4.springmvc.controller.filter.LoginCheckFilter</filter-class>
+            <filter-class>org.fullstack4.springmvc.filter.LoginCheckFilter</filter-class>
         </filter>
         <filter-mapping>
             <filter-name>login</filter-name>
-            <url-pattern>/bbs/*</url-pattern>
+            <url-pattern>/bbs/view</url-pattern>
+            <url-pattern>/bbs/regist</url-pattern>
+            <url-pattern>/bbs/modify</url-pattern>
+            <url-pattern>/bbs/delete</url-pattern>
+            <url-pattern>/member/view</url-pattern>
+            <url-pattern>/member/modify</url-pattern>
+            <url-pattern>/member/delete</url-pattern>
         </filter-mapping>
 
         <servlet>

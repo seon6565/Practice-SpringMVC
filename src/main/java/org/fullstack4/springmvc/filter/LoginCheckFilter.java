@@ -1,10 +1,13 @@
-package org.fullstack4.springmvc.controller.filter;
+package org.fullstack4.springmvc.filter;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.springmvc.mapper.LoginMapper;
 import org.fullstack4.springmvc.service.LoginServiceIf;
+import org.fullstack4.springmvc.service.LoginServiceImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -20,7 +23,6 @@ import java.io.IOException;
 @Log4j2
 @NoArgsConstructor
 public class LoginCheckFilter extends OncePerRequestFilter {
-    private LoginServiceIf service;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("Login Check Filter");
@@ -28,26 +30,7 @@ public class LoginCheckFilter extends OncePerRequestFilter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         if(session.getAttribute("memberDTO")==null) {
-            Cookie cookies[] = req.getCookies();
-            Cookie logincookie = null;
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("autologin")) {
-                    logincookie = cookie;
-                }
-            }
-            if (logincookie != null) {
-                try {
-                    session.setAttribute("memberDTO", service.Cookie_login(logincookie.getValue()));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (session.getAttribute("memberDTO") == null) {
-                res.sendRedirect("/login/login");
-            }
-            else{
-                filterChain.doFilter(request, response);
-            }
+            res.sendRedirect("/login/login");
         }
         else {
             filterChain.doFilter(request, response);

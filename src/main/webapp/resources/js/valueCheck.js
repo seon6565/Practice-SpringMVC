@@ -10,7 +10,9 @@
 // 	}
 // 	console.log(result);
 // }
-function checkInputId(id,textid){
+function checkInputId(id,textid,okflagid){
+
+	document.getElementById(okflagid).value="0";
 	let Check = document.getElementById(id);
 	let Char = "";
 	if(Check.value!=null) {
@@ -31,28 +33,24 @@ function checkInputId(id,textid){
 	return true;
 }
 
-function idduplecheck(frmid,id,hiddenFlagId,servletUrl){
-	let $userId = $("#"+frmid+"input[id="+id+"]");
-	if($userId!=null || $userId!=""){
-	$.ajax({
-	 url     : servletUrl,
-	 type    : "get",
-	 data    : { checkId : $userId.val() },
-	 success : function(result) {
-		if(result == "N") {
-		 	alert("이미 존재하거나 탈퇴한 회원의 아이디입니다.");
-		 	document.getElementById(hiddenFlagId).value = "0"
-		 	$userId.focus();
-	 	}
-		else{
-			document.getElementById(hiddenFlagId).value = "1"
-			alert("가입이 가능합니다.");
+function idduplecheck(id,hiddenFlagId,okflagid,servletUrl){
+	let checkid = document.getElementById(id);
+	const xhr = new XMLHttpRequest();
+	xhr.open("get",servletUrl+"?user_id="+checkid.value);
+	xhr.send();
+	xhr.onload = function (){
+		if(xhr.status==200){
+			if(xhr.response == "N"){
+				document.getElementById(hiddenFlagId).style.display = "block";
+				document.getElementById(okflagid).value="0";
+				alert("이미 존재하거나 탈퇴한 회원의 아이디입니다.");
+			}
+			else{
+				document.getElementById(hiddenFlagId).style.display = "none"
+				document.getElementById(okflagid).value="1";
+				alert("중복 아이디가 없습니다.");
+			}
 		}
-	 },
-	 error  : function() {
-		 console.log("id 중복체크용 ajax 통신 실패");
-	 }
- 	});
 	}
 }
 function checkInputPw(id,textid){
@@ -237,16 +235,27 @@ function checkInputCheckBox(id,textid){
 	}
 	return true;
 }
-function checklast(user_id,div_err_user_id,pwd,div_err_pwd,name,div_err_name,email,div_err_email,brithday,div_err_brithday){
-	if(checkInputId(user_id,div_err_user_id)&&checkInputPw(pwd,div_err_pwd)&&checkInputName(name,div_err_name)&&checkInputEmail(email,div_err_email)&&
+function checklast(user_id,div_err_user_id,pwd,div_err_pwd,name,div_err_name,email,div_err_email,brithday,div_err_brithday,okflagid){
+	if(checkInputPw(pwd,div_err_pwd)&&checkInputName(name,div_err_name)&&checkInputEmail(email,div_err_email)&&
 		checkInputBirth(brithday,div_err_brithday)){
-			alert("가입되었습니다.");
+		if(document.getElementById(okflagid).value >0) {
+			if(checkInputId(user_id,div_err_user_id,okflagid)) {
+				alert("가입되었습니다.");
+			}
+			else{
+				alert("아이디는 5~15자내의 숫자,영어만 입력하세요.");
+				event.preventDefault();
+			}
+		}
+		else{
+			alert("아이디 중복 체크를 진행해주세요.");
+			event.preventDefault();
+		}
 	}
 	else{
 		alert("조건에 맞게 수정해주세요.");
 		event.preventDefault();
 	}
-
 }
 // function checklast(iname,idn,password,password2,selectborn1,selectborn2,selectborn3,telnumber,email,interest1,interest2,
 // cc1,cc2,textid,textid2,textid3,textid4,textid5,textid6,textid7,textid8,textid9,textid10,hiddenFlagId){
