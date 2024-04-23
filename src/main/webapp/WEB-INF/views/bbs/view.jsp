@@ -39,7 +39,8 @@
     <span class="form-control">${bbsDTO.interest} </span>
 </div>
 <div class="d-grid gap-2 d-md-flex">
-    <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/list'">목록</button>
+    <button class="btn btn-outline-primary" type="button"
+            onclick="location.href='/bbs/list?page=${param.page}$page_size=${param.page_size}&search_type=${paramValues.get('search_type')[0]}&search_type=${paramValues.get('search_type')[1]}&search_word=${param.search_word}&search_date1=${param.search_date1}&search_date2=${param.search_date2}'">목록</button>
     <c:if test="${bbsDTO.user_id==memberDTO.user_id}">
         <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/modify?idx=${bbsDTO.idx}'">수정</button>
     </c:if>

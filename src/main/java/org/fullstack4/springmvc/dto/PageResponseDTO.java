@@ -51,8 +51,27 @@ public class PageResponseDTO<E> {
         this.next_page_flag = (this.total_page > this.page_block_end);
         this.dtoList = dtoList;
 
-        this.linkParams = "?page_siz="+ this.page_size;
+        search_type = requestDTO.getSearch_type()!=null?requestDTO.getSearch_type():null;
+        search_word = requestDTO.getSearch_word()!=null?requestDTO.getSearch_word():null;
+        search_date1 = requestDTO.getSearch_date1()!=null?requestDTO.getSearch_date1():null;
+        search_date2 = requestDTO.getSearch_date2()!=null?requestDTO.getSearch_date2():null;
+        StringBuilder search_type_String = new StringBuilder();
+        if(search_type!=null) {
+            for (String i : search_type) {
+                search_type_String.append("&search_type=" + i);
+            }
+        }
+        if(search_word!=null) {
+           search_type_String.append("&search_word=" + search_word);
+        }
+        if(search_date1!=null) {
+            search_type_String.append("&search_date1=" + search_date1);
+        }
+        if(search_date2!=null) {
+            search_type_String.append("&search_date2=" + search_date2);
+        }
 
+        this.linkParams = "?page_size="+ this.page_size+search_type_String.toString();
         log.info("PageResponseDTO END");
         log.info("========================================");
     }

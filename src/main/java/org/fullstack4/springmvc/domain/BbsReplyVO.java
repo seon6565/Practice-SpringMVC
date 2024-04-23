@@ -1,7 +1,6 @@
 package org.fullstack4.springmvc.domain;
 
 import lombok.*;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
@@ -10,15 +9,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BbsVO {
+public class BbsReplyVO {
     private int idx;
+    private int bbs_idx;
     private String user_id;
     private String title;
-    private String content;
-    private int read_cnt;
-    private LocalDate display_date;
     private LocalDate reg_date;
     private LocalDate modify_date;
-    private String interest;
-    private int reply_cnt;
 }

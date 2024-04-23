@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 @Log4j2
 @Controller
@@ -45,6 +49,16 @@ public class BbsController {
 
         PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
+        if(responseDTO.getSearch_type()!=null) {
+            for (String i : responseDTO.getSearch_type()) {
+                if (i.equals("t")) {
+                    model.addAttribute("search_typeflag_0", "checked");
+                }
+                if (i.equals("u")) {
+                    model.addAttribute("search_typeflag_1", "checked");
+                }
+            }
+        }
 
         log.info("responseDTO : "+ responseDTO.toString());
         log.info("BbsController >> list() END");
@@ -59,7 +73,6 @@ public class BbsController {
         log.info("bbsDTO : " +bbsDTO);
         log.info("============================");
         model.addAttribute("bbsDTO",bbsDTO);
-
     }
     @GetMapping("/regist")
     public void registGET(){
@@ -134,6 +147,77 @@ public class BbsController {
         }
     }
 
+    @GetMapping("/fileupload")
+    public String fileUploadGET(){
+        return "bbs/fileupload";
+    }
+
+
+    @PostMapping(value = "/fileupload")
+    public String fileUploadPost(@RequestParam("file")MultipartFile file){
+        String uploadFolder = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        String fileRealName = file.getOriginalFilename();
+        long size = file.getSize();
+        String fileExt = fileRealName.substring(fileRealName.indexOf("."),fileRealName.length());
+        log.info("===========================");
+        log.info("uploadFolder : "+uploadFolder);
+        log.info("fileRealName : "+fileRealName);
+        log.info("size : "+size);
+        log.info("fileExt : "+fileExt);
+
+        UUID uuid = UUID.randomUUID();
+        String[] uuids = uuid.toString().split("-");
+        String newName = uuids[0]+fileRealName;
+
+        log.info("uuid : "+uuid);
+        log.info("uuids : "+uuids);
+        log.info("newName : "+newName);
+
+        File saveFile = new File(uploadFolder+"\\"+newName);
+        try{
+            file.transferTo(saveFile);
+        }catch (IllegalStateException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        log.info("===========================");
+        return "/bbs/fileupload";
+    }
+
+    @PostMapping(value = "/fileupload2")
+    public String fileUploadPost2(MultipartHttpServletRequest files){
+        String uploadFolder = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        log.info("===========================");
+        log.info("uploadFolder : "+uploadFolder);
+        List<MultipartFile> list = files.getFiles("files");
+        for(MultipartFile file : list){
+            String fileRealName = file.getOriginalFilename();
+            long size = file.getSize();
+            String fileExt = fileRealName.substring(fileRealName.indexOf("."),fileRealName.length());
+
+            log.info("fileRealName : "+fileRealName);
+            log.info("size : "+size);
+            log.info("fileExt : "+fileExt);
+            UUID uuid = UUID.randomUUID();
+            String[] uuids = uuid.toString().split("-");
+            String newName = uuids[0]+fileRealName;
+
+            log.info("uuid : "+uuid);
+            log.info("uuids : "+uuids);
+            log.info("newName : "+newName);
+            File saveFile = new File(uploadFolder+"\\"+newName);
+            try{
+                file.transferTo(saveFile);
+            }catch (IllegalStateException e){
+                e.printStackTrace();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        log.info("===========================");
+        return "/bbs/fileupload";
+    }
 
 
 }

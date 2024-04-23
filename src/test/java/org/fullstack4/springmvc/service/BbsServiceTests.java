@@ -37,7 +37,8 @@ public class BbsServiceTests {
     @Test
     public void testBbsTotalCount(){
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .page(1).page_size(10)
+                .page(1).page_size(10).search_type(new String[]{"t","u"})
+                .search_word("테스트")
                 .build();
         int totalCount = bbsServiceIf.bbsTotalCount(pageRequestDTO);
         log.info("======================================");
