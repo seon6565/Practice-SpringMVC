@@ -11,6 +11,7 @@
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
+
 <div class="container">
 <form name="frmRegist" id="frmRegist" method="post" action="/bbs/regist">
     <div class="mb-3">
@@ -61,6 +62,7 @@
     </div>
 </form>
 </div>
+
 <%@ include file="../common/footer.jsp"%>
 <script>
     const result = {};

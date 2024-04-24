@@ -22,7 +22,7 @@
                 <li class="nav-item"><a href="/login/logout" class="nav-link link-secondary">로그아웃</a></li>
             </c:if>
             <c:if test="${memberDTO ==null}">
-                <li class="nav-item"><a href="/login/login" class="nav-link link-secondary">로그인</a></li>
+                <li class="nav-item"><a href="/login/autologin" class="nav-link link-secondary">로그인</a></li>
             </c:if>
         </ul>
     </header>

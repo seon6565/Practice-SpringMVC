@@ -30,7 +30,7 @@ public class LoginCheckFilter extends OncePerRequestFilter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         if(session.getAttribute("memberDTO")==null) {
-            res.sendRedirect("/login/login");
+            res.sendRedirect("/login/autologin");
         }
         else {
             filterChain.doFilter(request, response);

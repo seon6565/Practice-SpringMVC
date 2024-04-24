@@ -12,6 +12,7 @@ import org.fullstack4.springmvc.mapper.BbsMapper;
 import org.fullstack4.springmvc.mapper.BbsReplyMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ public class BbsReplyServiceImpl implements BbsReplyServiceIf{
     private final BbsReplyMapper bbsReplyXMLMapper;
     private final ModelMapper modelMapper;
     @Override
+    @Transactional
     public int reply_regist(BbsReplyDTO bbsReplyDTO) {
         log.info("========================");
         log.info("BbsReplyServiceImpl regist(bbsDTO)" + bbsReplyDTO);
@@ -31,25 +33,17 @@ public class BbsReplyServiceImpl implements BbsReplyServiceIf{
         int result = bbsReplyXMLMapper.reply_regist(bbsReplyVO);
         int reply_result = bbsReplyXMLMapper.update_reply_cnt(bbsReplyDTO.getBbs_idx());
         log.info("BbsReplyServiceImpl bbsReplyVO" + bbsReplyVO);
-        log.info("BbsReplyServiceImpl result" + result);
+        log.info("BbsReplyServiceImpl result :" + result);
+        log.info("BbsReplyServiceImpl reply_result :" + reply_result);
         log.info("========================");
 
-
-
         return result;
     }
 
     @Override
-    public List<BbsReplyDTO> reply_list() {
-        //List<BbsReplyDTO> BbsReplyDTOList = bbsReplyXMLMapper.reply_list().stream().map(vo->modelMapper.map(vo,BbsReplyDTO.class)).collect(Collectors.toList());
-        return null;
-    }
-
-    @Override
-    public int update_reply_cnt(int bbs_idx) {
-
-        int result = bbsReplyXMLMapper.update_reply_cnt(bbs_idx);
-        return result;
+    public List<BbsReplyDTO> reply_list(int bbs_idx) {
+        List<BbsReplyDTO> BbsReplyDTOList = bbsReplyXMLMapper.reply_list(bbs_idx).stream().map(vo->modelMapper.map(vo,BbsReplyDTO.class)).collect(Collectors.toList());
+        return BbsReplyDTOList;
     }
 
 

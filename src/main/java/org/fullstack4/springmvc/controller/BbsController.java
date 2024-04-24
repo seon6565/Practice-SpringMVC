@@ -3,8 +3,10 @@ package org.fullstack4.springmvc.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.springmvc.dto.BbsDTO;
+import org.fullstack4.springmvc.dto.BbsReplyDTO;
 import org.fullstack4.springmvc.dto.PageRequestDTO;
 import org.fullstack4.springmvc.dto.PageResponseDTO;
+import org.fullstack4.springmvc.service.BbsReplyServiceIf;
 import org.fullstack4.springmvc.service.BbsServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,14 +30,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class BbsController {
     private final BbsServiceIf bbsServiceIf;
-//    @GetMapping("/list")
-//    public void list(Model model){
-//        log.info("============================");
-//        log.info("bbsController list");
-//        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll();
-//        model.addAttribute("bbsList",bbsDTOList);
-//        log.info("============================");
-//    }
+    private final BbsReplyServiceIf bbsReplyServiceIf;
     @GetMapping("/list")
     public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         log.info("===============================");
@@ -70,9 +65,11 @@ public class BbsController {
         log.info("bbsController view");
         log.info("idx : " +idx);
         BbsDTO bbsDTO = bbsServiceIf.view(idx);
+        List<BbsReplyDTO> bbsReplyDTO = bbsReplyServiceIf.reply_list(idx);
         log.info("bbsDTO : " +bbsDTO);
         log.info("============================");
         model.addAttribute("bbsDTO",bbsDTO);
+        model.addAttribute("bbsReplyDTO",bbsReplyDTO);
     }
     @GetMapping("/regist")
     public void registGET(){

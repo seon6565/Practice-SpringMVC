@@ -20,10 +20,10 @@ public class BbsReplyServiceTests {
     @Autowired()
     private BbsReplyServiceIf bbsReplyServiceIf;
     @Test
-    public void testRegist(){
+    public void testReplyRegist(){
         BbsReplyDTO bbsReplyDTO = BbsReplyDTO.builder()
                 .user_id("test")
-                .title("제목 테스트").bbs_idx(51)
+                .title("test에서 제목 테스트").bbs_idx(141)
                 .build();
         int result = bbsReplyServiceIf.reply_regist(bbsReplyDTO);
     }

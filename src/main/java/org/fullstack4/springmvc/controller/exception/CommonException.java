@@ -25,14 +25,15 @@ public class CommonException {
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public String except(Exception exception){
-        log.info("============================");
-        log.info(exception.getMessage());
-        StringBuffer sb = new StringBuffer("<ul>");
-        sb.append("<li>"+ exception.getMessage()+"</li>");
-        Arrays.stream(exception.getStackTrace()).forEach(el->{sb.append("<li>"+el+"</li>");});
-        sb.append("</ul>");
-        log.info("============================");
-        return sb.toString();
+//        log.info("============================");
+//        log.info(exception.getMessage());
+//        StringBuffer sb = new StringBuffer("<ul>");
+//        sb.append("<li>"+ exception.getMessage()+"</li>");
+//        Arrays.stream(exception.getStackTrace()).forEach(el->{sb.append("<li>"+el+"</li>");});
+//        sb.append("</ul>");
+//        log.info("============================");
+//        return sb.toString();
+        return "/error/Exception";
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)

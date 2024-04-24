@@ -10,10 +10,11 @@
     <select id="reply_list" resultType="org.fullstack4.springmvc.domain.BbsReplyVO">
         select idx, bbs_idx, user_id, title, reg_date, modify_date
         from tbl_bbs_reply
+        where bbs_idx = #{bbs_idx}
         order by idx desc
     </select>
     <update id="update_reply_cnt">
-        update tbl_bbs set reply_cnt = reply_cnt +1 where idx=#{bbs_idx}
+        update tbl_bbs set reply_cnt = reply_cnt+1 where idx=#{bbs_idx}
     </update>
 
 </mapper>

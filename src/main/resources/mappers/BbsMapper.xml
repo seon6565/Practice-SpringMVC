@@ -7,16 +7,14 @@
         <where>
             1=1
             <if test="search_type !=null and search_type !=''">
-                <trim prefix=" and ">
-                <foreach collection="search_type" item="type" open="(" close=")" separator=" OR ">
+                <foreach collection="search_type" item="type" separator=" OR ">
                     <if test="type=='t'.toString()">
-                        title like concat('%', #{search_word},'%')
+                        and title like concat('%', #{search_word},'%')
                     </if>
                     <if test="type=='u'.toString()">
-                        user_id like concat('%', #{search_word},'%')
+                        and user_id like concat('%', #{search_word},'%')
                     </if>
                 </foreach>
-                </trim>
             </if>
             <if test="search_date1 !=null and search_date1 !='' ">
                 <trim prefix=" and ">

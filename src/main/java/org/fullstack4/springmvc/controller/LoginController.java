@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Member;
 import java.net.URLEncoder;
@@ -38,15 +39,6 @@ public class LoginController {
 //        } catch (UnsupportedEncodingException e) {
 //            throw new RuntimeException(e);
 //        }
-        HttpSession session= req.getSession();
-        if(session.getAttribute("memberDTO")==null) {
-            Cookie cookies[] = req.getCookies();
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("auto_login")) {
-                    session.setAttribute("memberDTO", loginServiceIf.Cookie_login(cookie.getValue()));
-                }
-            }
-        }
         model.addAttribute("acc_url", uri);
         log.info("============================");
         log.info("LoginController loginGET");
@@ -103,7 +95,7 @@ public class LoginController {
             //model.addAttribute("user_id",LoginMemberDTO);
             //redirectAttributes.addFlashAttribute("loginInfo",LoginMemberDTO);
             //return "redirect:"+uri;
-            return "redirect:/bbs/list";
+            return "redirect:"+uri;
         }
         redirectAttributes.addFlashAttribute("errors","사용자 정보가 일치하지 않습니다.");
         return "redirect:/login/login";
@@ -147,5 +139,24 @@ public class LoginController {
         log.info("============================");
 
         return "redirect:/bbs/list";
+    }
+
+    @RequestMapping("/autologin")
+    public String autologin(HttpServletRequest req, HttpServletResponse response){
+        String uri = req.getHeader("referer");
+        HttpSession session= req.getSession();
+        log.info("============================");
+        log.info("LoginController loginCheck");
+        log.info("============================");
+        if(session.getAttribute("memberDTO")==null) {
+            Cookie cookies[] = req.getCookies();
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("auto_login")) {
+                    session.setAttribute("memberDTO", loginServiceIf.Cookie_login(cookie.getValue()));
+                    return "redirect:"+uri;
+                }
+            }
+        }
+        return "redirect:/login/login";
     }
 }
